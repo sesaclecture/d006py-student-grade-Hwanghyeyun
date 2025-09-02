@@ -23,19 +23,39 @@ def load_from_csv(filepath):
 
 
 def subject_average(student_scores: dict, subjects: list):
+
+    num_student = len(student_scores) 
+    sub_sum = [0] * len(subjects)
+
+    for scores in student_scores.values():
+        for i ,score in enumerate(scores):
+            sub_sum[i] += int(scores[i])
+
+    sub_avg = {subjects[i] : round(sub_sum[i] / num_student,2) for i in  range(len(subjects)) }
+    return sub_avg 
+
+
     """
     이 반의 각 과목별 평균을 구해서 딕셔너리로 반환
     예) {"국어": 80.8, "수학": 35.3, "영어": 96.6, "과학": 85.3, "사회": 38.8}
     """
-    pass
-
+    
 
 def student_average(student_scores: dict):
+    stud_avg = []
+    for name, scores in student_scores.items():
+        int_scores = [int(score) for score in scores]
+        avg = round(sum(int_scores) / len(int_scores),2)
+        stud_avg.append((name, avg))
+    
+    stud_avg.sort(key=lambda x: x[1], reverse=True)
+    return stud_avg
+
     """
     각 학생별 전과목 평균 점수를 정렬된 튜플의 리스트로 반환
     예) [("이영희", 89.8), ("김철수", 86.6), ("박민수", 84.8)]
     """
-    pass
+   
 
 
 if __name__ == "__main__":
